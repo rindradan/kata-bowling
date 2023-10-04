@@ -41,4 +41,16 @@ class ScoreCalculatorTest {
         // THEN
         score shouldBe 10
     }
+
+    @Test
+    fun `GIVEN 20 throws with 10 pairs of some numbers less than 10 WHEN calculate score THEN score should be the sum of the numbers`() {
+        // GIVEN
+        val cases = "1-2-3-4-5-6-7-8-9-1-"
+
+        // WHEN
+        val score = scoreCalculator.compute(cases)
+
+        // THEN
+        score shouldBe 46
+    }
 }
