@@ -50,4 +50,16 @@ class ScoreCalculatorTest {
         // THEN
         score shouldBe 46
     }
+
+    @Test
+    fun `GIVEN some throws with a strike WHEN calculate score THEN score should be the sum of all the pins down + bonus of next pins down after strike`() {
+        // GIVEN
+        val cases = "10-0 2-3 1-5"
+
+        // WHEN
+        val score = scoreCalculator.compute(cases)
+
+        // THEN
+        score shouldBe 26
+    }
 }

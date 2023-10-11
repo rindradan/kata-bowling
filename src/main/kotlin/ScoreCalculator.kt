@@ -4,6 +4,14 @@ class ScoreCalculator {
 
     fun compute(cases: String): Int {
         val frames = cases.toFrames()
-        return frames.sumOf { it.first + it.second }
+        var sum = 0
+        for (index in frames.indices) {
+            val frame = frames[index]
+            sum += frame.sum()
+            if (frame.isStrike()) {
+                sum += frames[index+1].sum()
+            }
+        }
+        return sum
     }
 }
