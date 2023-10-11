@@ -3,19 +3,21 @@ class ScoreCalculator {
     fun compute(cases: String): Int {
         val frames = cases.toFrames()
 
-        validateFrames(frames)
+        if (frames.size > 10) throw IllegalNumberOfFramesException()
 
         return frames
-            .flatMap { it.toThrow() }
-            .sumOf { it.toInt() }
+            .sumOf { it.first + it.second }
     }
 
-    private fun validateFrames(frames: List<String>) {
-        if (frames.size > 10) throw IllegalNumberOfFramesException()
-    }
+    private fun String.toFrames() : List<Pair<Int,Int>> = split(FRAMES_SEPARATOR).mapIndexed { index, value -> value.toFrame(index) }
 
-    private fun String.toFrames() = split(FRAMES_SEPARATOR)
-    private fun String.toThrow() = split(THROWS_SEPARATOR)
+    private fun String.toFrame(elementIndex: Int) : Pair<Int,Int> {
+        val (throws, invalidThrows) = split(THROWS_SEPARATOR).partition { it.toInt() <= 10 }
+        if (invalidThrows.isNotEmpty()) {
+            throw IllegalValueOfThrowException("Frame($invalidThrows) at index $elementIndex is > 10")
+        }
+        return Pair(throws[0].toInt(), throws[1].toInt())
+    }
 
     companion object {
         private const val FRAMES_SEPARATOR : String = " "

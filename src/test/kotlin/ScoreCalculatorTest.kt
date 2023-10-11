@@ -7,9 +7,19 @@ class ScoreCalculatorTest {
     private val scoreCalculator = ScoreCalculator()
 
     @Test
+    fun `a throw should not be more than 10`() {
+        // GIVEN
+        val cases = "1-0 11-0"
+
+        // WHEN
+        // THEN
+        assertThrows<IllegalValueOfThrowException> { scoreCalculator.compute(cases) }
+    }
+
+    @Test
     fun `a game should not have more than 10 frames`() {
         // GIVEN
-        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 11-0"
+        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 10-0"
 
         // WHEN
         // THEN
