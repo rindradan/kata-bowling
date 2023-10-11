@@ -5,18 +5,20 @@ class ScoreCalculator {
 
         validateFrames(frames)
 
-        return cases.toCharArray()
-            .filter { it.isDigit() }
-            .sumOf { it.digitToInt() }
+        return frames
+            .flatMap { it.toThrow() }
+            .sumOf { it.toInt() }
     }
 
     private fun validateFrames(frames: List<String>) {
         if (frames.size > 10) throw IllegalNumberOfFramesException()
     }
 
-    private fun String.toFrames() = this.split(FRAMES_SEPARATOR)
+    private fun String.toFrames() = split(FRAMES_SEPARATOR)
+    private fun String.toThrow() = split(THROWS_SEPARATOR)
 
     companion object {
         private const val FRAMES_SEPARATOR : String = " "
+        private const val THROWS_SEPARATOR : String = "-"
     }
 }

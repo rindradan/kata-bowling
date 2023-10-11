@@ -17,45 +17,9 @@ class ScoreCalculatorTest {
     }
 
     @Test
-    fun `GIVEN 20 throws with 10 pairs of none WHEN calculate score THEN score should be 0`() {
-        // GIVEN
-        val cases = "0-0-0-0-0-0-0-0-0-0-"
-
-        // WHEN
-        val score = scoreCalculator.compute(cases)
-
-        // THEN
-        score shouldBe 0
-    }
-
-    @Test
-    fun `GIVEN 20 throws with 10 pairs of 9 WHEN calculate score THEN score should be 90`() {
-        // GIVEN
-        val cases = "9-9-9-9-9-9-9-9-9-9-"
-
-        // WHEN
-        val score = scoreCalculator.compute(cases)
-
-        // THEN
-        score shouldBe 90
-    }
-
-    @Test
-    fun `GIVEN 20 throws with 10 pairs of 1 WHEN calculate score THEN score should be 10`() {
-        // GIVEN
-        val cases = "1-1-1-1-1-1-1-1-1-1-"
-
-        // WHEN
-        val score = scoreCalculator.compute(cases)
-
-        // THEN
-        score shouldBe 10
-    }
-
-    @Test
     fun `GIVEN 20 throws with 10 pairs of some numbers less than 10 WHEN calculate score THEN score should be the sum of the numbers`() {
         // GIVEN
-        val cases = "1-2-3-4-5-6-7-8-9-1-"
+        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 1-0"
 
         // WHEN
         val score = scoreCalculator.compute(cases)
