@@ -7,7 +7,7 @@ class ScoreCalculatorTest {
     private val scoreCalculator = ScoreCalculator()
 
     @Test
-    fun `a throw should not be more than 10`() {
+    fun `a throw should not be more than 10 pins down`() {
         // GIVEN
         val cases = "1-0 11-0"
 
@@ -17,7 +17,7 @@ class ScoreCalculatorTest {
     }
 
     @Test
-    fun `a frame should not be more than 10`() {
+    fun `a frame should not be more than 10 pins down`() {
         // GIVEN
         val cases = "1-0 9-5"
 
@@ -37,7 +37,7 @@ class ScoreCalculatorTest {
     }
 
     @Test
-    fun `GIVEN 20 throws with 10 pairs of some numbers less than 10 WHEN calculate score THEN score should be the sum of the numbers`() {
+    fun `GIVEN some throws with pins down less than 10 WHEN calculate score THEN score should be the sum of all of the pins down`() {
         // GIVEN
         val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 1-0"
 
