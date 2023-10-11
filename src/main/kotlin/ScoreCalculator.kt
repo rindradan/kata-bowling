@@ -1,14 +1,17 @@
 class ScoreCalculator {
 
     fun compute(cases: String): Int {
-        validateCases(cases)
+        val frames = cases.toFrames()
+
+        validateFrames(frames)
+
         return cases.toCharArray()
             .filter { it.isDigit() }
             .sumOf { it.digitToInt() }
     }
 
-    private fun validateCases(cases: String) {
-        if (cases.toFrames().size > 10) throw IllegalNumberOfFramesException()
+    private fun validateFrames(frames: List<String>) {
+        if (frames.size > 10) throw IllegalNumberOfFramesException()
     }
 
     private fun String.toFrames() = this.split(FRAMES_SEPARATOR)
