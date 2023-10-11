@@ -1,10 +1,20 @@
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class ScoreCalculatorTest {
 
     private val scoreCalculator = ScoreCalculator()
 
+    @Test
+    fun `a game should not have more than 10 frames`() {
+        // GIVEN
+        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 11-0"
+
+        // WHEN
+        // THEN
+        assertThrows<IllegalNumberOfFramesException> { scoreCalculator.compute(cases) }
+    }
 
     @Test
     fun `GIVEN 20 throws with 10 pairs of none WHEN calculate score THEN score should be 0`() {
