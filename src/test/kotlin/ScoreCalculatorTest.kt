@@ -1,3 +1,6 @@
+import exception.IllegalNumberOfFramesException
+import exception.IllegalValueOfFrameException
+import exception.IllegalValueOfThrowException
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
