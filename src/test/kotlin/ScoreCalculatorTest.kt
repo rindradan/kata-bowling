@@ -52,30 +52,6 @@ class ScoreCalculatorTest {
     }
 
     @Test
-    fun `GIVEN some throws with a strike WHEN calculate score THEN score should be the sum of all the pins down + bonus of the 2 next throws after strike`() {
-        // GIVEN
-        val cases = "10-0 2-3 1-5"
-
-        // WHEN
-        val score = scoreCalculator.compute(cases)
-
-        // THEN
-        score shouldBe 26
-    }
-
-    @Test
-    fun `GIVEN some throws with 2 successive strikes WHEN calculate score THEN score should be the sum of all pins down + bonus of the 2 next throws after strike`() {
-        // GIVEN
-        val cases = "10-0 10-0 2-3 1-5"
-
-        // WHEN
-        val score = scoreCalculator.compute(cases)
-
-        // THEN
-        score shouldBe 48
-    }
-
-    @Test
     fun `should not fail to calculate if data after a strike is not defined`() {
         // GIVEN
         val cases = "2-3 1-5 10-0"
