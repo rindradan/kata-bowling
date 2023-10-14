@@ -19,6 +19,7 @@ class ScoreCalculator {
         when {
             isBonus -> 0
             isStrike() -> STRIKE_VALUE + computeStrike(nextFrame, nextNextFrame)
+            isSpare() -> sum() + computeSpare(nextFrame)
             else -> sum()
         }
 
@@ -28,6 +29,8 @@ class ScoreCalculator {
             nextFrame.isStrike() -> STRIKE_VALUE + nextNextFrame.firstThrow
             else -> nextFrame.firstThrow + nextFrame.secondThrow
         }
+
+    private fun computeSpare(nextFrame: Frame?): Int = nextFrame?.firstThrow ?: 0
 
     companion object {
         private const val STRIKE_VALUE = 10

@@ -32,7 +32,27 @@ class ScoreCalculatorTest {
     @Test
     fun `a normal game should not have more than 10 frames`() {
         // GIVEN
-        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 10-0"
+        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 9-0 10-0"
+
+        // WHEN
+        // THEN
+        assertThrows<IllegalNumberOfFramesException> { scoreCalculator.compute(cases) }
+    }
+
+    @Test
+    fun `a bonus game should not have more than 11 frames`() {
+        // GIVEN
+        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 1-0 2-0"
+
+        // WHEN
+        // THEN
+        assertThrows<IllegalNumberOfFramesException> { scoreCalculator.compute(cases) }
+    }
+
+    @Test
+    fun `a bonus max game should not have more than 12 frames`() {
+        // GIVEN
+        val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 10-0 2-0 3-0"
 
         // WHEN
         // THEN
@@ -73,5 +93,28 @@ class ScoreCalculatorTest {
 
         // THEN
         score shouldBe 300
+    }
+
+    @Test
+    fun `GIVEN some throws with a spare WHEN calculate score THEN score should be the sum of pins down + bonus of the next throw after the spare`() {
+        // GIVEN
+        val cases = "5-5 2-5 1-2"
+
+        // WHEN
+        val score = scoreCalculator.compute(cases)
+
+        // THEN
+        score shouldBe 22
+    }
+    @Test
+    fun `GIVEN all frames are spare WHEN calculate score THEN score should be 150`() {
+        // GIVEN
+        val cases = "5-5 5-5 5-5 5-5 5-5 5-5 5-5 5-5 5-5 5-5 5-5"
+
+        // WHEN
+        val score = scoreCalculator.compute(cases)
+
+        // THEN
+        score shouldBe 150
     }
 }

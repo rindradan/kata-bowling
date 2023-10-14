@@ -6,5 +6,6 @@ data class Frame(
     val isBonus: Boolean = false,
 ) {
     fun isStrike() : Boolean = firstThrow == 10
+    fun isSpare() : Boolean = !isStrike() && sum() == 10
     fun sum() : Int = firstThrow + secondThrow
 }

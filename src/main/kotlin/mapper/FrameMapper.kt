@@ -13,12 +13,14 @@ private const val FRAMES_SIZE_WITH_BONUS_MAX = 12
 
 fun String.toFrames() : List<Frame> {
     val frames = split(FRAMES_SEPARATOR).mapIndexed { index, value -> value.toFrame(index) }
-    if (frames.hasNormalSize() || frames.hasFrameBonusMax()) return frames
+    if (frames.hasNormalSize() || frames.hasBonusSize() || frames.hasBonusMaxSize()) return frames
     else throw IllegalNumberOfFramesException()
 }
 
 private fun List<Frame>.hasNormalSize() = size <= FRAMES_SIZE_NORMAL
-private fun List<Frame>.hasFrameBonusMax() = size == FRAMES_SIZE_WITH_BONUS_MAX  && lastNormalFrameIsStrike() && firstBonusFrameIsStrike()
+private fun List<Frame>.hasBonusSize() = size == FRAMES_SIZE_WITH_BONUS && (lastNormalFrameIsStrike() || lastNormalFrameIsSpare())
+private fun List<Frame>.hasBonusMaxSize() = size == FRAMES_SIZE_WITH_BONUS_MAX && lastNormalFrameIsStrike() && firstBonusFrameIsStrike()
+private fun List<Frame>.lastNormalFrameIsSpare() = get(FRAMES_SIZE_NORMAL - 1).isSpare()
 private fun List<Frame>.lastNormalFrameIsStrike() = get(FRAMES_SIZE_NORMAL - 1).isStrike()
 private fun List<Frame>.firstBonusFrameIsStrike() = get(FRAMES_SIZE_WITH_BONUS - 1).isStrike()
 
