@@ -9,7 +9,11 @@ class ScoreCalculator {
             val frame = frames[index]
             sum += frame.sum()
             if (frame.isStrike()) {
-                sum += frames[index+1].sum()
+                val nextFrame = frames[index+1]
+                sum += nextFrame.sum()
+                if (nextFrame.isStrike()) {
+                    sum += frames[index+2].firstThrow
+                }
             }
         }
         return sum
