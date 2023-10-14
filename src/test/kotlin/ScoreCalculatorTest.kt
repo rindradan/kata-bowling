@@ -74,4 +74,16 @@ class ScoreCalculatorTest {
         // THEN
         score shouldBe 48
     }
+
+    @Test
+    fun `should not fail to calculate if data after a strike is not defined`() {
+        // GIVEN
+        val cases = "2-3 1-5 10-0"
+
+        // WHEN
+        val score = scoreCalculator.compute(cases)
+
+        // THEN
+        score shouldBe 21
+    }
 }

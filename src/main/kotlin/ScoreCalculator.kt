@@ -10,7 +10,9 @@ class ScoreCalculator {
             val frame = frames[index]
             sum +=
                 if (frame.isStrike()) {
-                    computeStrike(frames[index + 1], frames[index + 2])
+                    val nextFrame = frames.getOrNull(index + 1)
+                    val nextNextFrame = frames.getOrNull(index + 2)
+                    computeStrike(nextFrame, nextNextFrame)
                 } else {
                     frame.sum()
                 }
@@ -18,11 +20,15 @@ class ScoreCalculator {
         return sum
     }
 
-    private fun computeStrike(nextFrame: Frame, nextNextFrame: Frame): Int {
-        if (nextFrame.isStrike()) {
-            return STRIKE_VALUE + STRIKE_VALUE + nextNextFrame.firstThrow
+    private fun computeStrike(nextFrame: Frame?, nextNextFrame: Frame?): Int {
+        return when {
+            nextFrame == null || nextNextFrame == null -> {
+                println("Warning: Strike data not complete")
+                STRIKE_VALUE
+            }
+            nextFrame.isStrike() -> STRIKE_VALUE + STRIKE_VALUE + nextNextFrame.firstThrow
+            else -> STRIKE_VALUE + nextFrame.firstThrow + nextFrame.secondThrow
         }
-        return STRIKE_VALUE + nextFrame.firstThrow + nextFrame.secondThrow
     }
 
     companion object {
