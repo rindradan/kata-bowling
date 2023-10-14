@@ -1,4 +1,5 @@
 import mapper.toFrames
+import model.Frame
 
 class ScoreCalculator {
 
@@ -7,15 +8,24 @@ class ScoreCalculator {
         var sum = 0
         for (index in frames.indices) {
             val frame = frames[index]
-            sum += frame.sum()
-            if (frame.isStrike()) {
-                val nextFrame = frames[index+1]
-                sum += nextFrame.sum()
-                if (nextFrame.isStrike()) {
-                    sum += frames[index+2].firstThrow
+            sum +=
+                if (frame.isStrike()) {
+                    computeStrike(frames[index + 1], frames[index + 2])
+                } else {
+                    frame.sum()
                 }
-            }
         }
         return sum
+    }
+
+    private fun computeStrike(nextFrame: Frame, nextNextFrame: Frame): Int {
+        if (nextFrame.isStrike()) {
+            return STRIKE_VALUE + STRIKE_VALUE + nextNextFrame.firstThrow
+        }
+        return STRIKE_VALUE + nextFrame.firstThrow + nextFrame.secondThrow
+    }
+
+    companion object {
+        private const val STRIKE_VALUE = 10
     }
 }
