@@ -8,33 +8,26 @@ class ScoreCalculator {
         var sum = 0
         for (index in frames.indices) {
             val frame = frames[index]
-            sum +=
-                if (isFrameBonus(index)) {
-                    0
-                }
-                else if (frame.isStrike()) {
-                    val nextFrame = frames.getOrNull(index + 1)
-                    val nextNextFrame = frames.getOrNull(index + 2)
-                    computeStrike(nextFrame, nextNextFrame)
-                } else {
-                    frame.sum()
-                }
+            val nextFrame = frames.getOrNull(index + 1)
+            val nextNextFrame = frames.getOrNull(index + 2)
+            sum += frame.compute(nextFrame, nextNextFrame)
         }
         return sum
     }
 
-    private fun isFrameBonus(index: Int) = index == 10 || index == 11
-
-    private fun computeStrike(nextFrame: Frame?, nextNextFrame: Frame?): Int {
-        return when {
-            nextFrame == null || nextNextFrame == null -> {
-                println("Warning: Strike data not complete")
-                STRIKE_VALUE
-            }
-            nextFrame.isStrike() -> STRIKE_VALUE + STRIKE_VALUE + nextNextFrame.firstThrow
-            else -> STRIKE_VALUE + nextFrame.firstThrow + nextFrame.secondThrow
+    private fun Frame.compute(nextFrame: Frame?, nextNextFrame: Frame?) =
+        when {
+            isBonus -> 0
+            isStrike() -> STRIKE_VALUE + computeStrike(nextFrame, nextNextFrame)
+            else -> sum()
         }
-    }
+
+    private fun computeStrike(nextFrame: Frame?, nextNextFrame: Frame?): Int =
+        when {
+            nextFrame == null || nextNextFrame == null -> 0
+            nextFrame.isStrike() -> STRIKE_VALUE + nextNextFrame.firstThrow
+            else -> nextFrame.firstThrow + nextFrame.secondThrow
+        }
 
     companion object {
         private const val STRIKE_VALUE = 10
