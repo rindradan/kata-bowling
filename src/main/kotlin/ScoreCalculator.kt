@@ -9,7 +9,10 @@ class ScoreCalculator {
         for (index in frames.indices) {
             val frame = frames[index]
             sum +=
-                if (frame.isStrike()) {
+                if (isFrameBonus(index)) {
+                    0
+                }
+                else if (frame.isStrike()) {
                     val nextFrame = frames.getOrNull(index + 1)
                     val nextNextFrame = frames.getOrNull(index + 2)
                     computeStrike(nextFrame, nextNextFrame)
@@ -19,6 +22,8 @@ class ScoreCalculator {
         }
         return sum
     }
+
+    private fun isFrameBonus(index: Int) = index == 10 || index == 11
 
     private fun computeStrike(nextFrame: Frame?, nextNextFrame: Frame?): Int {
         return when {

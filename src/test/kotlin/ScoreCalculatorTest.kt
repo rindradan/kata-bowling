@@ -30,7 +30,7 @@ class ScoreCalculatorTest {
     }
 
     @Test
-    fun `a game should not have more than 10 frames`() {
+    fun `a normal game should not have more than 10 frames`() {
         // GIVEN
         val cases = "1-0 2-0 3-0 4-0 5-0 6-0 7-0 8-0 9-0 10-0 10-0"
 
@@ -85,5 +85,17 @@ class ScoreCalculatorTest {
 
         // THEN
         score shouldBe 21
+    }
+
+    @Test
+    fun `GIVEN all frames are strike WHEN calculate score THEN score should be 300`() {
+        // GIVEN
+        val cases = "10-0 10-0 10-0 10-0 10-0 10-0 10-0 10-0 10-0 10-0 10-0 10-0"
+
+        // WHEN
+        val score = scoreCalculator.compute(cases)
+
+        // THEN
+        score shouldBe 300
     }
 }
